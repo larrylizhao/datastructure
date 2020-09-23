@@ -1,13 +1,51 @@
 package Tree;
 
-public class BinarySearchTree {
+import java.util.ArrayList;
+import java.util.List;
 
+public class BinarySearchTree {
+    private BinaryTreeNode root;
+
+    public BinarySearchTree() {
+    }
+
+    public BinarySearchTree(BinaryTreeNode root) {
+        this.root = root;
+    }
+
+    public void add(BinaryTreeNode node) {
+        if(root == null) {
+            root = node;
+        } else {
+            root.add(node);
+        }
+    }
+
+    public List<Integer> inorderTraverse() {
+        if(root != null) {
+            return root.inorderTraverse();
+        } else {
+            return new ArrayList<Integer>();
+        }
+    }
+
+    public static void main(String[] args) {
+        BinarySearchTree root = new BinarySearchTree();
+        int[] arr = {3,6,1,7,8,12,9,52};
+        for (int i : arr) {
+            root.add(new BinaryTreeNode(i));
+        }
+
+        List<Integer> treeArr = root.inorderTraverse();
+        System.out.println(treeArr);
+    }
 }
 
 class BinaryTreeNode {
     public int val;
     public BinaryTreeNode left;
     public BinaryTreeNode right;
+    public List<Integer> inorderArray = new ArrayList<Integer>();
 
     public BinaryTreeNode(int val) {
         this.val = val;
@@ -39,13 +77,16 @@ class BinaryTreeNode {
 
     /**
      * 中序遍历BST，输出数组
-     * @param node BST根节点
      * @return 中序遍历的数组
      */
-    public int[] inorderTraverse(BinaryTreeNode node) {
-
+    public List<Integer> inorderTraverse() {
+        if(this.left != null) {
+            inorderArray.addAll(this.left.inorderTraverse());
+        }
+        inorderArray.add(this.val);
+        if(this.right != null) {
+            inorderArray.addAll(this.right.inorderTraverse());
+        }
+        return inorderArray;
     }
-
-
-
 }
