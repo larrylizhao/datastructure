@@ -65,7 +65,7 @@ class BinaryTreeNode {
                     this.left.add(node);
                 }
                 // 大于当前节点，放在右边
-            } else{
+            } else {
                 if(this.right == null) {
                     this.right = node;
                 } else {
